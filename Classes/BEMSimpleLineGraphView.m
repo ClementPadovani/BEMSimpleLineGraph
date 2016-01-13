@@ -570,7 +570,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     }
     
     BEMLine *line = [[BEMLine alloc] initWithFrame:[self drawableGraphArea]];
-    
+
     line.opaque = NO;
     line.alpha = 1;
     line.backgroundColor = [UIColor clearColor];
@@ -617,7 +617,53 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     } else line.averageLine = self.averageLine;
     
     line.disableMainLine = self.displayDotsOnly;
-    
+
+	if ([[self delegate] respondsToSelector: @selector(lineGraph:colorForLineAboveValue:)])
+	{
+		CGFloat upperThreshold = 0;
+
+		UIColor *upperThresholdColor = [[self delegate] lineGraph: self
+									colorForLineAboveValue: &upperThreshold];
+
+		if (!upperThresholdColor)
+		{
+			NSString *exceptionReason = [NSString stringWithFormat: @"The `upperThresholdColor` returned by delegate %@ is nil.", [self delegate]];
+
+			NSException *exception = [NSException exceptionWithName: NSInvalidArgumentException
+												    reason: exceptionReason
+												  userInfo: nil];
+
+			@throw exception;
+		}
+
+		[line setUpperThresholdValue: upperThreshold];
+
+		[line setUpperThresholdColor: upperThresholdColor];
+	}
+
+	if ([[self delegate] respondsToSelector: @selector(lineGraph:colorForLineBelowValue:)])
+	{
+		CGFloat lowerThreshold = 0;
+
+		UIColor *lowerThresholdColor = [[self delegate] lineGraph: self
+									colorForLineBelowValue: &lowerThreshold];
+
+		if (!lowerThresholdColor)
+		{
+			NSString *exceptionReason = [NSString stringWithFormat: @"The `lowerThresholdColor` returned by delegate %@ is nil.", [self delegate]];
+
+			NSException *exception = [NSException exceptionWithName: NSInvalidArgumentException
+												    reason: exceptionReason
+												  userInfo: nil];
+
+			@throw exception;
+		}
+
+		[line setLowerThresholdValue: lowerThreshold];
+
+		[line setLowerThresholdColor: lowerThresholdColor];
+	}
+
     [self addSubview:line];
     [self sendSubviewToBack:line];
     [self sendSubviewToBack:self.backgroundXAxis];
