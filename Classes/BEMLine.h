@@ -166,6 +166,16 @@ typedef NS_ENUM(NSUInteger, BEMLineGradientDirection) {
 /// The average line's y-value translated into the coordinate system
 @property (assign, nonatomic) CGFloat averageLineYCoordinate;
 
+//----- THRESHOLD VALUES -----//
 
+// TODO: Fill in documentation for these values.
+
+@property (nonatomic, assign) CGFloat upperThresholdValue;
+
+@property (nonatomic, assign) CGFloat lowerThresholdValue;
+
+@property (nonatomic, copy) UIColor *upperThresholdColor;
+
+@property (nonatomic, copy) UIColor *lowerThresholdColor;
 
 @end
