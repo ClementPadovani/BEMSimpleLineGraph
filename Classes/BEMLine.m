@@ -265,6 +265,31 @@
         pathLayer.lineWidth = self.lineWidth;
         pathLayer.lineJoin = kCALineJoinBevel;
         pathLayer.lineCap = kCALineCapRound;
+
+	    if (![self lineGradient])
+	    {
+			if ([self upperThresholdColor])
+			{
+				CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+
+				NSMutableArray *locationsArray = [NSMutableArray array];
+
+				[locationsArray addObject: @(1)];
+
+				NSNumber *topNumber = [[[self arrayOfPoints] sortedArrayUsingSelector: @selector(compare:)] firstObject];
+
+				NSNumber *bottomNumber = [[[self arrayOfPoints] sortedArrayUsingSelector: @selector(compare:)] lastObject];
+
+				CGFloat upperThreshold = [self upperThresholdValue];
+
+				CGFloat topNumberValue = [topNumber CGFloatValue];
+
+				CGFloat bottomNumberValue = [bottomNumber CGFloatValue];
+
+				
+			}
+	    }
+
         if (self.animationTime > 0) [self animateForLayer:pathLayer withAnimationType:self.animationType isAnimatingReferenceLine:NO];
         if (self.lineGradient) [self.layer addSublayer:[self backgroundGradientLayerForLayer:pathLayer]];
         else [self.layer addSublayer:pathLayer];
