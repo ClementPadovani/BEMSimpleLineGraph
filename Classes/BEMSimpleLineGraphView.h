@@ -591,8 +591,36 @@ IB_DESIGNABLE @interface BEMSimpleLineGraphView : UIView <UIGestureRecognizerDel
  @return The increment value to add to the value returned from `baseValueForYAxisOnLineGraph` for future Y-Axis labels */
 - (CGFloat)incrementValueForYAxisOnLineGraph:(BEMSimpleLineGraphView *)graph;
 
+// TODO: Add integration tests.
+
+/**
+ *  Color for upper threshold value.
+ *
+ *  @param graph      The graph object which is requesting the upper threshold color.
+ *  @param upperValue An out CGFloat, the value is the upper threshold.
+ *
+ *  @discuss Throws an exception if the color is nil.
+ *
+ *  @return The color for the line.
+ */
+
+- (UIColor *) lineGraph: (BEMSimpleLineGraphView *) graph colorForLineAboveValue: (CGFloat *) upperValue;
+
+// TODO: Add integration tests.
+
+/**
+ *  Color for upper threshold value.
+ *
+ *  @param graph      The graph object which is requesting the lower threshold color.
+ *  @param lowerValue An out CGFloat, the value is the lower threshold.
+ *
+ *  @discuss Throws an exception if the color is nil.
+ *
+ *  @return The color for the line.
+ */
 
 
+- (UIColor *) lineGraph: (BEMSimpleLineGraphView *) graph colorForLineBelowValue: (CGFloat *) lowerValue;
 
 //----- DEPRECATED -----//
 
